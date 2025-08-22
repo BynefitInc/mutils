@@ -1,6 +1,6 @@
     // Find the script tag that loaded this file (to read options)
     const me = document.currentScript
-      || Array.from(document.scripts).find(s => s.src.includes('myion.js'));
+      || Array.from(document.scripts).find(s => s.src.includes('myion-v1.js'));
     
     // Allow override via data-config, else use the default path
     const configPath = me?.dataset?.config || '/includes/js/shared/maint-config.js';

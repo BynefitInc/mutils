@@ -1,4 +1,25 @@
-    import CONFIG from 'https://bynefit.org/includes/js/shared/maint-config.js';
+    // Find the script tag that loaded this file (to read options)
+    const me = document.currentScript
+      || Array.from(document.scripts).find(s => s.src.includes('myion.js'));
+    
+    // Allow override via data-config, else use the default path
+    const configPath = me?.dataset?.config || '/includes/js/shared/maint-config.js';
+    
+    // Build a URL relative to the PAGE, not the CDN
+    const configURL = new URL(configPath, window.location.origin).href;
+    
+    // Load ESM config (supports default or named export)
+    let CONFIG;
+    try {
+      const mod = await import(configURL);
+      CONFIG = mod.default ?? mod.CONFIG ?? mod;
+    } catch (err) {
+      console.error(`Failed to import config from ${configURL}`, err);
+      // Optional: try a JSON fallback
+      // const res = await fetch(new URL('/includes/js/shared/maint-config.json', location.origin));
+      // CONFIG = await res.json();
+    }
+    
     const $ = (id) => document.getElementById(id);
 
     function formatETA(iso) {

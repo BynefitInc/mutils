@@ -1,4 +1,4 @@
-    import CONFIG from '/includes/js/shared/maint-config.js';
+    import CONFIG from 'https://bynefit.org/includes/js/shared/maint-config.js';
     const $ = (id) => document.getElementById(id);
 
     function formatETA(iso) {
